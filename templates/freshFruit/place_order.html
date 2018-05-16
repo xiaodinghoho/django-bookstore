@@ -1,0 +1,106 @@
+{%extends 'freshFruit/base_user.html'%}
+{% load static from staticfiles %}
+{%block title%}天天生鲜-提交订单{%endblock%}
+{%block option%}提交订单{%endblock%}
+{%block user_message%}{%endblock%}
+
+{%block content%}
+<h3 class="common_title">确认收货地址</h3>
+<form action="{% url 'cart:place_hander' %}" method="post" id='myform'>
+	<div class="common_list_con clearfix">
+		<dl>
+			<dt>寄送到：</dt>
+			{% for area in AddrList %}
+			<dd><input id="radio" type="radio" name="addr" value='{{area.id}}' {%if area.aDefaultAddr == True%}checked="true"  {%endif%} >{{area.aProvince}} {{area.aCity}} {{area.aDis}} {{area.aDetaAddr}}（{{area.aAddressee}} 收） {%for i in area.aPhoneNumber%}{%if forloop.counter <= 3 or forloop.counter > 7%}{{i}}{%else%}*{%endif%}{%endfor%}</dd>
+			{% endfor %}
+		</dl>
+		<a href="{% url 'usercenter:user_center_site'%}" class="edit_site">编辑收货地址</a>
+
+	</div>
+	
+	<h3 class="common_title">支付方式</h3>	
+	<div class="common_list_con clearfix">
+		<div class="pay_style_con clearfix">
+			<input type="radio" name="pay_style" checked>
+			<label class="cash">货到付款</label>
+			<input type="radio" name="pay_style">
+			<label class="weixin">微信支付</label>
+			<input type="radio" name="pay_style">
+			<label class="zhifubao"></label>
+			<input type="radio" name="pay_style">
+			<label class="bank">银行卡支付</label>
+		</div>
+	</div>
+
+	<h3 class="common_title">商品列表</h3>
+	
+	<div class="common_list_con clearfix">
+		<ul class="goods_list_th clearfix">
+			<li class="col01">商品名称</li>
+			<li class="col02">商品单位</li>
+			<li class="col03">商品价格</li>
+			<li class="col04">数量</li>
+			<li class="col05">小计</li>		
+		</ul>
+		{% for i in orderlist %}
+		<input type=hidden value='{{i.cartId}}' name='cartId'>
+		<input type=hidden value='{{i.goodscount}}' name='goodscount'>
+		<input type=hidden value='{{i.goods.id}}' name='goodsId'>
+		<ul class="goods_list_td clearfix">
+			<li class="col01">{{i.count}}</li>			
+			<li class="col02"><img src="/media/{{i.goods.imgPath}}"></li>
+			<li class="col03">{{i.goods.goodsName}}</li>
+			<li class="col04">500g</li>
+			<li class="col05">{{i.goods.goodsPrice}}</li>
+			<li class="col06">{{i.goodscount}}</li>
+			<li class="col07">{{i.sumtotal}}元</li>	
+		</ul>
+		{% endfor %}
+	</div>
+
+	<h3 class="common_title">总金额结算</h3>
+
+	<div class="common_list_con clearfix">
+		<div class="settle_con">
+			<div class="total_goods_count">共<em>{{goodsamount}}</em>件商品，总金额<b>{{alltotal}}元</b></div>
+			<div class="transit">运费：<b>{{freight}}元</b></div>
+			<div class="total_pay">实付款：<b>{{allprice}}元</b></div>
+		</div>
+	</div>
+
+	<div class="order_submit clearfix">
+		<!-- <a href="javascript:;" id="order_btn">提交订单</a> -->
+		<input type="submit" name="" value="提交订单" id="order_btn" style="height: 40px;width: 160px;float: right;background-color: #47aa34;border: 0px;color:#fff;font-size: 16px;">
+	</div>	
+	</form>
+	<script type="text/javascript">
+		$('#addr').click(function(){
+				$(this).attr('name','addr').siblings('#addr').attr('name','')
+			});
+
+		$('#myform').submit(function() {
+			flage=false
+			if ($('.common_list_con dl dd input').length ==0){
+				flage=false
+			}
+			else {
+
+				$('.common_list_con dl dd input').each(function () {
+				
+				if($(this).prop('checked')){
+					flage=true
+																}
+
+			})
+		}
+		if (flage==true){
+			return true
+		}
+		else{
+			alert('地址未选择')
+			return false
+		}
+		})
+
+	</script>
+{%endblock%}

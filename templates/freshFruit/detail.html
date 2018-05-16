@@ -1,0 +1,190 @@
+{%extends 'freshFruit/base_index.html'%}
+{% load static from staticfiles %}
+{%block title%}天天生鲜-商品详情{%endblock%}
+
+
+{%block content%}
+<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/detail.js' %}"></script>
+
+<script type="text/javascript" src='/static/tiny_mce/tiny_mce.js'></script>
+    <script type="text/javascript">
+        tinyMCE.init({
+            'mode':'textareas',
+            'theme':'advanced',
+            'width':1000,
+            'height':300
+        });
+    </script>
+
+    
+<div class="breadcrumb">
+		<a href="#">全部分类</a>
+		<span>></span>
+		<a href="{% url 'goodslist:list'%}?order=id&&sort={{goodSort.id}}">{{goodSort.sortName}}</a>
+		<span>></span>
+		<a href="#">商品详情</a>
+	</div>
+	
+
+	<div class="goods_detail_con clearfix">
+		<div class="goods_detail_pic fl"><img src="/media/{{good.imgPath}}" style="height:300px;width:300xp;"></div>
+		
+		<div class="goods_detail_list fr">
+			<h3>{{good.goodsName}}</h3>
+			<p>{{good.goodsDesc}}</p>
+			<div class="prize_bar">
+				<span class="show_pirze">¥<em>{{good.goodsPrice}}</em></span>
+			</div>
+			<div class="goods_num clearfix">
+				<div class="num_name fl">数 量：</div>
+				<div class="num_add fl">
+					<input type="text" class="num_show fl" value="1">
+					<a href="javascript:;" class="add fr">+</a>
+					<a href="javascript:;" class="minus fr">-</a>	
+				</div> 
+			</div>
+			<div class="total">总价：<em>{{good.goodsPrice}}元</em></div>
+			<div class="operate_btn">
+				<a href="/place_order/?" class="buy_btn">立即购买</a>
+				<a href="javascript:;" class="add_cart" id="add_cart" value='{{good.id}}'>加入购物车</a>				
+			</div>
+		</div>
+	</div>
+	
+	<div class="main_wrap clearfix">
+		<div class="l_wrap fl clearfix">
+			<div class="new_goods">
+				<h3>新品推荐</h3>
+				<ul>
+					{%for i in newgoodslist %}
+					<li>
+						<a href="/detail/?goodsId={{i.id}}"><img src="/media/{{i.imgPath}}"></a>
+						<h4><a href="#">{{i.goodsName}}</a></h4>
+						<div class="prize">￥{{i.goodsPrice}}</div>
+					</li>
+					{%endfor%}
+					
+				</ul>
+			</div>
+		</div>
+
+		<div class="r_wrap fr clearfix">
+			<ul class="detail_tab clearfix">
+				<li class="active introd">商品介绍</li>
+					
+				<li class="comment">商品评论</li>
+			</ul>
+
+			<div class="tab_content">
+				<dl>
+					<dt></dt>
+					<dd class="detail">{{good.goodsDetail|safe}}</dd>
+					<div class="formtable">
+						<form action="/comment{{good.id}}/" method="post" style="display:none" class="form">
+						
+							{%for i in GoodsComment%}
+							<p >{{i.userName}}  {{i.commentDate}}</p>
+							<dd >{{i.comment|safe}}</dd>
+							<hr name='goodId' value='{{good.id}}'>
+							{%endfor%}
+							<textarea class="com" name='comment'></textarea>
+							<input type="submit" value="提交评论">
+						</form>
+					</div>
+				</dl>
+			</div>
+
+		</div>
+	</div>
+
+
+	<div class="add_jump"></div>
+
+	<script type="text/javascript">
+		$(function () {
+			$('.detail_tab .comment').click(function () {
+				$(this).addClass('active').siblings('li').removeClass('active');
+			$('.tab_content .formtable form').show();
+			// $('.tab_content com').show();
+			$('.tab_content .detail').hide();
+
+			});
+
+			$('.detail_tab .introd').click(function () {
+			$(this).addClass('active').siblings('li').removeClass('active');
+			$('.tab_content .formtable form').hide();
+			// $('.tab_content com').show();
+			$('.tab_content .detail').show();
+		
+			})
+		})
+	</script>
+	<script>
+    (function($) {
+        $.extend({
+            tipsBox: function(options) {
+                options = $.extend({
+                    obj: null,  
+                    str: "+1", 
+                    startSize: "30px",  
+                    endSize: "60px",   
+                    interval: 1000,  
+                    color: "#ff5400",    
+                    callback: function() {}
+                }, options);
+                $("body").append("<span class='num'>"+ options.str +"</span>");
+                var box = $(".num");
+                var left = options.obj.offset().left + options.obj.width()/2 + 190;
+                var top = options.obj.offset().top - options.obj.height()-200;
+                box.css({
+                    "position": "absolute",
+                    "left": left + "px",
+                    "top": top + "px",
+                    "z-index": 9999,
+                    "font-size": options.startSize,
+                    "line-height": options.endSize,
+                    "color": options.color
+                });
+                box.animate({
+                    "font-size": options.endSize,
+                    "opacity": "0",
+                    "top": top - parseInt(options.endSize) + "px"
+                }, options.interval , function() {
+                    box.remove();
+                    options.callback();
+                });
+            }
+        });
+    })(jQuery);
+</script>
+<script>
+	$(function() {
+		$(".add_cart").click(function() {
+			$.tipsBox({
+				obj: $(this),
+				str: "+1",
+                callback: function() {
+                }
+			});
+		});
+	});
+</script>
+	
+{%endblock%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

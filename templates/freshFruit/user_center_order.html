@@ -1,0 +1,116 @@
+{%extends 'freshFruit/base_user.html'%}
+{% load static from staticfiles %}
+{%block option%}用户中心{%endblock%}
+{%block tab_order%}<li><a href="{% url 'usercenter:user_center_order'%}" class="active">· 全部订单</a></li>{%endblock %}
+
+{%block content%}
+
+		<div class="right_content clearfix">
+			
+				<h3 class="common_title2">全部订单</h3>
+				{%for orde in orderlist%}
+				<ul class="order_list_th w978 clearfix">
+					<li class="col01">{{orde.order.orderTime}}</li>
+					<li class="col02">订单号：{{orde.order.orderNumber}}</li>
+					<li class="col02 stress">{%if orde.order.isFinish == 1%}已付款{%else%}未支付{%endif%}</li>		
+				</ul>
+				<table class="order_list_table w980">
+					<tbody>
+						<tr>
+							<td width="55%">
+							{% for i in orde.orderdetail %}:
+								<ul class="order_goods_list clearfix">					
+									<li class="col01"><img src="/static/{{i.good.imgPath}}"></li>
+									<li class="col02">{{i.od.goodsName}}<em>{{i.od.goodsPrice}}元/500g</em></li>	
+									<li class="col03">{{i.od.buyCount}}</li>
+									<li class="col04">{{i.od.goodsPrice}}元</li>	
+								</ul>
+							{% endfor %}
+					
+							</td>
+							<td width="15%"></td>
+							<td width="15%">{%if orde.order.isFinish == 1%}已付款{%else%}待付款{%endif%}</td>
+							<td width="15%">
+							{%if orde.order.isFinish == 1%}
+							<a href="javascript:;" class="oper_btn" id='oper_btn'>查看物流
+							{%else%}
+							<a href="{% url 'usercenter:pay'%}?order={{orde.order.id}}" class="oper_btn">去付款
+							{%endif%}
+							</a>
+							
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<p style="display: none">{{orde.addr.aProvince}} {{orde.addr.aCity}} {{orde.addr.aDis}} {{orde.addr.aDetaAddr}}（{{orde.addr.aAddressee}} 收） {%for i in orde.addr.aPhoneNumber%}{%if forloop.counter <= 3 or forloop.counter > 7%}{{i}}{%else%}*{%endif%}{%endfor%}</p>	
+				{%endfor%}
+				<div class="pagenation">
+					<a href="#" id='toleft'><上一页</a>
+					{%for index in plist%}
+					<a href="{% url 'usercenter:user_center_order'%}?page={{index}}" class="{%if index == pIndex %}active{%endif%}">{{index}}</a>
+					{%endfor%}
+					<a href="#" id='toright'>下一页></a>
+				</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+<script type="text/javascript">
+$(function (){
+	
+function add(a, b) {
+    var c, d, e;
+    try {
+        c = a.toString().split(".")[1].length;
+    } catch (f) {
+        c = 0;
+    }
+    try {
+        d = b.toString().split(".")[1].length;
+    } catch (f) {
+        d = 0;
+    }
+    return e = Math.pow(10, Math.max(c, d)), (mul(a, e) + mul(b, e)) / e;
+}
+
+	function mul(a, b) {
+    var c = 0,
+        d = a.toString(),
+        e = b.toString();
+    try {
+        c += d.split(".")[1].length;
+    } catch (f) {}
+    try {
+        c += e.split(".")[1].length;
+    } catch (f) {}
+    return Number(d.replace(".", "")) * Number(e.replace(".", "")) / Math.pow(10, c);
+}
+
+		// 分页
+		var ahref=$('.pagenation .active').attr('href');
+		var apage=ahref.split('page=')
+		var max=parseInt($('#toright').prev('a').html())
+		index=ahref.indexOf(apage[1]);
+		left=parseInt(apage[1])-1;
+		right=parseInt(apage[1])+1;
+		if (left<=0){left=1};
+		if (right>=max){right=max};
+		$('#toleft').attr({ href: apage[0]+'page='+String(left)});
+		$('#toright').attr({ href: apage[0]+'page='+String(right)});
+		// 总价
+		
+		$('tbody tr td').each(function () {
+			sum=0;
+			$(this).children('ul').children('li').children('em').each(function(){
+				sum += parseFloat($(this).html().split('元')[0])*100*parseInt($(this).parent().siblings('.col03').html())/100;
+				$(this).parent().parent().parent().next().html(sum+'元');
+			})
+	
+		})
+	})
+	$('#oper_btn').click(function () {
+		$(this).parent().parent().parent().parent().next('p').toggle();
+	
+	})
+</script>
+{% endblock %}

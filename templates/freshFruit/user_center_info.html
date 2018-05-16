@@ -1,0 +1,77 @@
+{%extends 'freshFruit/base_user.html'%}
+{% load static from staticfiles %}
+{%block option%}用户中心{%endblock%}
+{%block tab_info%}<li><a href="{% url 'usercenter:user_center_info'%}" class="active">· 个人信息</a></li>{%endblock %}
+
+{%block content%}
+
+		<div class="right_content clearfix">
+				<form action="{% url 'usercenter:user_center_info'%}" method="post">
+
+				<div class="info_con  clearfix">
+				<h3 class="common_title2">基本信息</h3>
+						<ul class="user_info_list">
+							<li><span>用户名：</span>{{user.uName}}</li>
+							<li id ='uphone'><span>联系方式：</span>{{user.uPhoneNumber}}</li>
+							<li id ='uaddr'><span>联系地址：</span>{{user.uAddr}}
+
+							<div class="edit_btn" id="edit_btn">编辑</div>
+							<input class="edit_submit"  type="submit" name="" value="提交">
+							</li>			
+						</ul>
+					</form>	
+				</div>	
+				<h3 class="common_title2">最近浏览</h3>
+				<div class="has_view_list">
+					<ul class="goods_type_list clearfix">
+				{% for i in recentsee%}
+				<li>
+					<a href="/detail/?goodsId={{i.id}}"><img src="/media/{{i.imgPath}}"></a>
+					<h4><a href="/detail/?goodsId={{good.id}}">{{i.goodsName}}</a></h4>
+					<div class="operate">
+						<span class="prize">￥{{i.goodsPrice}}</span>
+						<span class="unit">{{i.goodsPrice}}/500g</span>
+						<a href="javascript:;" class="add_goods" title="加入购物车" value='{{i.id}}'></a>
+					</div>
+				</li>
+				{%endfor%}
+		
+			</ul>
+		</div>
+		</div>
+	</div>
+<script type="text/javascript">
+		$(function(){
+		$('#edit_btn').click(function(){
+			
+			$("#uphone").html('<span>联系方式：</span><input type="text" name="phonenumber" value="{{user.uPhoneNumber}}">');
+			$("#uaddr").html('<span>联系地址：</span><input type="text" name="addr" value="{{user.uAddr}}"><div class="edit_btn" id="edit_btn">编辑</div><input class="edit_submit"  type="submit" name="" value="提交">');
+			$(":submit").css("display","inline-block");
+
+		});
+
+			$('.add_goods').click(function(){
+		thisgood=$(this).attr('value')
+			$.ajax({
+   	 	url: '/addcart/',
+    	type: 'POST',
+    	dataType: 'json',
+    	data:{'goodsName':thisgood,'buyCount':1}
+	})
+	.done(function(data) {
+		
+		$('#show_count').html(data.number)
+		}
+	)
+	.fail(function() {
+		// error_name = 'True';
+    alert('服务器超时，请重试！');
+	});
+}
+		)
+	})
+
+</script>
+
+	
+{%endblock%}
