@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="65c5f20a-a0e4-4d0b-a491-5c906ec7021b" name="默认" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/django-bookstore/__init__.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/django-bookstore/settings.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/django-bookstore/urls.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/django-bookstore/wsgi.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/templates/freshFruit/base_index.html" afterPath="$PROJECT_DIR$/templates/freshFruit/base_index.html" />
-      <change beforePath="$PROJECT_DIR$/templates/freshFruit/changekw.html" afterPath="$PROJECT_DIR$/templates/freshFruit/changekw.html" />
-      <change beforePath="$PROJECT_DIR$/templates/freshFruit/choujiang.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/templates/freshFruit/detail.html" afterPath="$PROJECT_DIR$/templates/freshFruit/detail.html" />
-      <change beforePath="$PROJECT_DIR$/templates/freshFruit/index.html" afterPath="$PROJECT_DIR$/templates/freshFruit/index.html" />
-      <change beforePath="$PROJECT_DIR$/templates/freshFruit/list.html" afterPath="$PROJECT_DIR$/templates/freshFruit/list.html" />
-      <change beforePath="$PROJECT_DIR$/templates/freshFruit/login.html" afterPath="$PROJECT_DIR$/templates/freshFruit/login.html" />
-      <change beforePath="$PROJECT_DIR$/templates/freshFruit/place_order.html" afterPath="$PROJECT_DIR$/templates/freshFruit/place_order.html" />
-      <change beforePath="$PROJECT_DIR$/templates/freshFruit/register.html" afterPath="$PROJECT_DIR$/templates/freshFruit/register.html" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,11 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="detail.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/freshFruit/detail.html">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+            <state relative-caret-position="15">
+              <caret line="1" column="4" lean-forward="false" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -106,7 +93,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="verify.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="verify.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/freshFruit/verify.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
@@ -194,7 +181,6 @@
         <option value="$PROJECT_DIR$/templates/detail.html" />
         <option value="$PROJECT_DIR$/index/static/css/main.css" />
         <option value="$PROJECT_DIR$/templates/search/search.html" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/templates/freshFruit/base_index.html" />
         <option value="$PROJECT_DIR$/templates/freshFruit/changekw.html" />
         <option value="$PROJECT_DIR$/templates/freshFruit/detail.html" />
@@ -203,6 +189,7 @@
         <option value="$PROJECT_DIR$/templates/freshFruit/login.html" />
         <option value="$PROJECT_DIR$/templates/freshFruit/place_order.html" />
         <option value="$PROJECT_DIR$/templates/freshFruit/register.html" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -553,14 +540,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/freshFruit/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -685,6 +664,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="7" lean-forward="true" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="4" lean-forward="false" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
           <folding />
         </state>
       </provider>
